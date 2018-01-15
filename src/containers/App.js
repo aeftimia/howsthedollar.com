@@ -9,7 +9,7 @@ import Tabs from '../components/Tabs';
 import VerticalChartAxis from '../components/VerticalChartAxis';
 
 import { fetchPriceHistory, fetchSpotPrices } from '../api';
-import { ACTIVE_CRYPTOCURRENCY, ACTIVE_CURRENCY, CRYPTOCURRENCY, CURRENCY, DURATION, POLL_FREQUENCY } from '../constants';
+import { CRYPTOCURRENCY, CURRENCY, DURATION, POLL_FREQUENCY } from '../constants';
 import { formatCurrency } from '../utils';
 
 import './App.css';
@@ -21,7 +21,7 @@ const DURATION_LIST = Object.keys(DURATION).map(e => DURATION[e]);
 
 const INITIAL_STATE = {
   priceHistory: [],
-  spotPrice: { amount: '0', currency: ACTIVE_CRYPTOCURRENCY },
+  spotPrice: { amount: '0', currency: CURRENCY_LIST[0] },
   selectedCryptocurrencyIndex: 0,
   selectedCurrencyIndex: 0,
   selectedDurationIndex: 2,
@@ -55,6 +55,7 @@ class App extends Component {
 
   fetchPriceData() {
     const {
+      selectedCurrencyIndex,
       selectedCryptocurrencyIndex,
       selectedDurationIndex,
     } = this.state;
@@ -62,10 +63,10 @@ class App extends Component {
     const promises = [
       fetchPriceHistory(
         CRYPTOCURRENCY_LIST[selectedCryptocurrencyIndex].key,
-        ACTIVE_CURRENCY,
+        CURRENCY_LIST[selectedCurrencyIndex].key,
         DURATION_LIST[selectedDurationIndex].key,
       ),
-      fetchSpotPrices(ACTIVE_CURRENCY),
+      fetchSpotPrices(CURRENCY_LIST[selectedCurrencyIndex].key),
     ];
 
     Promise.all(promises)
@@ -164,6 +165,7 @@ class App extends Component {
     const {
       priceHistory,
       selectedCurrencyIndex,
+      selectedCryptocurrencyIndex,
       selectedDurationIndex,
       spotPrice,
     } = this.state;
@@ -171,8 +173,8 @@ class App extends Component {
     return (
       <div className="table">
         <PriceTable
-          cryptocurrencyLabel={CURRENCY_LIST[selectedCurrencyIndex].name}
-          code={CRYPTOCURRENCY_LIST[selectedCurrencyIndex].key}
+          currencyLabel={CURRENCY_LIST[selectedCurrencyIndex].name}
+          code={CRYPTOCURRENCY_LIST[selectedCryptocurrencyIndex].key}
           durationLabel={DURATION_LIST[selectedDurationIndex].humanize}
           priceHistory={priceHistory}
           spotPrice={+spotPrice.amount}

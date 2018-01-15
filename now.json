@@ -1,5 +1,4 @@
 {
-    "name": "coincharts",
     "public": true,
     "env": {
       "NODE_ENV": "production"

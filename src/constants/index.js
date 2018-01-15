@@ -19,9 +19,6 @@ const CURRENCY = {
   cad: { key: 'cad', name: 'Canadian Dollar' },
 };
 
-const ACTIVE_CRYPTOCURRENCY = 'btc';
-const ACTIVE_CURRENCY = 'usd';
-
 // Time duration constants
 const DURATION = {
   HOUR: { key: 'hour', codename: '1H', humanize: 'since an hour ago' },
@@ -39,8 +36,6 @@ const LOCAL_JSON_DATA_DIR = './priceData';
 const POLL_FREQUENCY = 60 * 1000;
 
 export {
-    ACTIVE_CRYPTOCURRENCY,
-    ACTIVE_CURRENCY,
     CURRENCY,
     CRYPTOCURRENCY,
     DURATION,

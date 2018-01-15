@@ -6,7 +6,7 @@ import TableCell from './components/TableCell';
 
 import './index.css';
 
-const PriceTable = ({ cryptocurrencyLabel, code, durationLabel, spotPrice, priceHistory }) => {
+const PriceTable = ({ currencyLabel, code, durationLabel, spotPrice, priceHistory }) => {
   const lastIndex = scan(priceHistory, (a, b) => a.time - b.time);
   const oldPrice = priceHistory[lastIndex] && priceHistory[lastIndex].price;
   const priceDifference = spotPrice - oldPrice;
@@ -14,7 +14,7 @@ const PriceTable = ({ cryptocurrencyLabel, code, durationLabel, spotPrice, price
   const tableCells = [];
   tableCells.push(
     <TableCell
-      label={`${cryptocurrencyLabel} price`}
+      label={`${currencyLabel} price`}
       code={code}
       value={spotPrice}
     />,
@@ -47,7 +47,7 @@ const PriceTable = ({ cryptocurrencyLabel, code, durationLabel, spotPrice, price
 };
 
 PriceTable.propTypes = {
-  cryptocurrencyLabel: PropTypes.string.isRequired,
+  currencyLabel: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   durationLabel: PropTypes.string.isRequired,
   priceHistory: PropTypes.arrayOf(PropTypes.shape({
