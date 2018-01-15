@@ -6,11 +6,21 @@ const CRYPTOCURRENCY = {
   LTC: { key: 'ltc', name: 'Litecoin', fillColor: '#ECECEC', strokeColor: '#B5B5B5' },
 };
 
+const SYMBOLS = {
+  btc: '₿',
+  bch: '₿',
+  eth: 'Ξ',
+  ltc: 'Ł',
+};
+
 // Supported Currencies
 const CURRENCY = {
-  cad: { key: 'cad', name: 'Canadian Dollar' },
   usd: { key: 'usd', name: 'US Dollar' },
+  cad: { key: 'cad', name: 'Canadian Dollar' },
 };
+
+const ACTIVE_CRYPTOCURRENCY = 'btc';
+const ACTIVE_CURRENCY = 'usd';
 
 // Time duration constants
 const DURATION = {
@@ -28,4 +38,13 @@ const LOCAL_JSON_DATA_DIR = './priceData';
 // Polls the API endpoint every minute to update prices
 const POLL_FREQUENCY = 60 * 1000;
 
-export { CURRENCY, CRYPTOCURRENCY, DURATION, LOCAL_JSON_DATA_DIR, POLL_FREQUENCY };
+export {
+    ACTIVE_CRYPTOCURRENCY,
+    ACTIVE_CURRENCY,
+    CURRENCY,
+    CRYPTOCURRENCY,
+    DURATION,
+    LOCAL_JSON_DATA_DIR,
+    POLL_FREQUENCY,
+    SYMBOLS,
+};

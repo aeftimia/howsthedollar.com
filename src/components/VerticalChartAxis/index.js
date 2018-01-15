@@ -1,32 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import currencyFormatter from 'currency-formatter';
 import { extent } from 'd3-array';
+import { formatCurrency } from '../../utils';
 
 import './index.css';
 
-const ACTIVE_CURRENCY = 'usd';
 
 function formatAxisPrice(price, currencyCode) {
-  return currencyFormatter.format(price, {
-    code: currencyCode.toUpperCase(),
-    precision: 0,
-  });
+  return formatCurrency(price, currencyCode, { precision: 0 });
 }
 
-const VerticalChartAxis = ({ data, textAlign }) => {
+const VerticalChartAxis = ({ cryptocurrency, data, textAlign }) => {
   const [minPrice, maxPrice] = extent(data, d => d.price);
   const textAlignClass = (textAlign === 'left') ? 'left' : 'right';
 
   return (
     <div className={`VerticalChartAxis ${textAlignClass}`}>
-      <div className="tick">{formatAxisPrice(maxPrice, ACTIVE_CURRENCY)}</div>
-      <div className="tick">{formatAxisPrice(minPrice, ACTIVE_CURRENCY)}</div>
+      <div className="tick">{formatAxisPrice(maxPrice, cryptocurrency)}</div>
+      <div className="tick">{formatAxisPrice(minPrice, cryptocurrency)}</div>
     </div>
   );
 };
 
 VerticalChartAxis.propTypes = {
+  cryptocurrency: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     price: PropTypes.number,
     time: PropTypes.data,

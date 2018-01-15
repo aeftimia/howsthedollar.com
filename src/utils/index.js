@@ -1,4 +1,5 @@
 import currencyFormatter from 'currency-formatter';
+import { SYMBOLS } from '../constants';
 
 /**
  * Adds the appropriate symbol & separators to `value` based on the input `currencyCode`
@@ -6,11 +7,22 @@ import currencyFormatter from 'currency-formatter';
  * @param {string} currencyCode
  * @returns Formatted currency string
  */
-function formatCurrency(value, currencyCode) {
-  return currencyFormatter.format(value, {
-    code: currencyCode.toUpperCase(),
-  });
+function formatCurrency(_value, currencyCode, args) {
+  let value;
+  let symbol;
+  if (_value * 100 < 0.5) {
+    value = _value * 1000000;
+    symbol = 'µ';
+  } else {
+    value = _value;
+    symbol = '';
+  }
+  return `${currencyFormatter.format(value, { ...args })}${symbol}${SYMBOLS[currencyCode.toLowerCase()]}`;
+}
+
+function derivePrice(inversePrice) {
+  return 1.0 / inversePrice;
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { formatCurrency };
+export { formatCurrency, derivePrice };

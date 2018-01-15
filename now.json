@@ -1,5 +1,7 @@
 {
-  "name": "coincharts",
-  "public": true,
-  "alias": "coincharts"
+    "name": "coincharts",
+    "public": true,
+    "env": {
+      "NODE_ENV": "production"
+    }
 }

@@ -9,20 +9,21 @@ import Tabs from '../components/Tabs';
 import VerticalChartAxis from '../components/VerticalChartAxis';
 
 import { fetchPriceHistory, fetchSpotPrices } from '../api';
-import { CRYPTOCURRENCY, DURATION, POLL_FREQUENCY } from '../constants';
+import { ACTIVE_CRYPTOCURRENCY, ACTIVE_CURRENCY, CRYPTOCURRENCY, CURRENCY, DURATION, POLL_FREQUENCY } from '../constants';
 import { formatCurrency } from '../utils';
 
 import './App.css';
 
 // `Object.values` polyfill for IE (since it's not supported by CRA)
 const CRYPTOCURRENCY_LIST = Object.keys(CRYPTOCURRENCY).map(e => CRYPTOCURRENCY[e]);
+const CURRENCY_LIST = Object.keys(CURRENCY).map(e => CURRENCY[e]);
 const DURATION_LIST = Object.keys(DURATION).map(e => DURATION[e]);
 
-const ACTIVE_CURRENCY = 'usd';
 const INITIAL_STATE = {
   priceHistory: [],
-  spotPrice: { amount: '0', currency: ACTIVE_CURRENCY },
+  spotPrice: { amount: '0', currency: ACTIVE_CRYPTOCURRENCY },
   selectedCryptocurrencyIndex: 0,
+  selectedCurrencyIndex: 0,
   selectedDurationIndex: 2,
   spotPrices: [],
 };
@@ -97,7 +98,7 @@ class App extends Component {
     const { selectedCryptocurrencyIndex, spotPrices } = this.state;
     const cryptocurrency = CRYPTOCURRENCY_LIST[selectedCryptocurrencyIndex].key;
     const price = spotPrices[selectedCryptocurrencyIndex] || '';
-    const priceText = formatCurrency(price.amount, ACTIVE_CURRENCY) || '';
+    const priceText = formatCurrency(price.amount, cryptocurrency) || '';
 
     return (
       <Helmet>
@@ -115,7 +116,7 @@ class App extends Component {
       let key;
       let tabOption;
       if (spotPrices[index]) {
-        const price = formatCurrency(spotPrices[index].amount, ACTIVE_CURRENCY);
+        const price = formatCurrency(spotPrices[index].amount, CRYPTOCURRENCY_LIST[index].key);
         key = `${name} ${price}`;
         tabOption = (
           <span className="cryptocurrency" key={key}>
@@ -162,7 +163,7 @@ class App extends Component {
   renderPriceTable() {
     const {
       priceHistory,
-      selectedCryptocurrencyIndex,
+      selectedCurrencyIndex,
       selectedDurationIndex,
       spotPrice,
     } = this.state;
@@ -170,7 +171,8 @@ class App extends Component {
     return (
       <div className="table">
         <PriceTable
-          cryptocurrencyLabel={CRYPTOCURRENCY_LIST[selectedCryptocurrencyIndex].name}
+          cryptocurrencyLabel={CURRENCY_LIST[selectedCurrencyIndex].name}
+          code={CRYPTOCURRENCY_LIST[selectedCurrencyIndex].key}
           durationLabel={DURATION_LIST[selectedDurationIndex].humanize}
           priceHistory={priceHistory}
           spotPrice={+spotPrice.amount}
@@ -186,7 +188,7 @@ class App extends Component {
     return (
       <div className="chart">
         <div className="topSection">
-          <VerticalChartAxis data={priceHistory} textAlign="left" />
+          <VerticalChartAxis cryptocurrency={cryptocurrency.key} data={priceHistory} textAlign="left" />
           <PriceChart
             data={priceHistory}
             color={
@@ -195,8 +197,9 @@ class App extends Component {
                 stroke: cryptocurrency.strokeColor,
               }
             }
+            code={cryptocurrency.key}
           />
-          <VerticalChartAxis data={priceHistory} textAlign="right" />
+          <VerticalChartAxis cryptocurrency={cryptocurrency.key} data={priceHistory} textAlign="right" />
         </div>
         <HorizontalChartAxis data={priceHistory} duration={durationType} />
       </div>

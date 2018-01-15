@@ -10,7 +10,6 @@ import HoverContainer from './components/HoverContainer';
 import { formatCurrency } from '../../utils';
 import './index.css';
 
-const ACTIVE_CURRENCY = 'usd';
 const CHART_PADDING_TOP = 20;
 const DEFAULT_COLOR = {
   fill: '#FFEBC5',
@@ -62,7 +61,7 @@ class PriceChart extends Component {
   }
 
   updateHoverPosition = (e) => {
-    const { data } = this.props;
+    const { data, code } = this.props;
     const { dimensions } = this.state;
 
     // Find closest data point to the x-coordinates of where the user's mouse is hovering
@@ -70,7 +69,7 @@ class PriceChart extends Component {
     const index = Math.round((hoverX / dimensions.width) * (data.length - 1));
     const hoveredDatapoint = data[index] || {};
     const hoveredValue = {
-      price: hoveredDatapoint.price && formatCurrency(hoveredDatapoint.price, ACTIVE_CURRENCY),
+      price: hoveredDatapoint.price && formatCurrency(hoveredDatapoint.price, code),
       time: hoveredDatapoint.time && hoveredDatapoint.time.toLocaleString(),
     };
 
@@ -140,6 +139,7 @@ PriceChart.propTypes = {
     fill: PropTypes.string,
     stroke: PropTypes.string,
   }),
+  code: PropTypes.string,
 };
 
 PriceChart.defaultProps = {

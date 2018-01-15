@@ -2,6 +2,7 @@ import axios from 'axios';
 import get from 'lodash.get';
 
 import { LOCAL_JSON_DATA_DIR } from '../constants';
+import { derivePrice } from '../utils';
 
 function getPriceHistoryUrl(cryptocurrency, currency, durationType) {
   if (process.env.NODE_ENV !== 'production') {
@@ -29,7 +30,7 @@ function fetchPriceHistory(cryptocurrency, currency, durationType) {
         const priceHistory = get(response, ['data', 'data', 'prices'], []);
         const formattedPriceHistory = priceHistory
           .sort((a, b) => new Date(a.time) - new Date(b.time))
-          .map(e => ({ price: +e.price, time: new Date(e.time) }));
+          .map(e => ({ price: derivePrice(+e.price), time: new Date(e.time) }));
         resolve(formattedPriceHistory);
       })
       .catch(err => reject(err));
@@ -46,7 +47,7 @@ function fetchSpotPrices(currency) {
         const spotPrices = get(response, ['data', 'data'], []);
         const formattedSpotPrices = spotPrices
           .filter(e => ['BTC', 'BCH', 'ETH', 'LTC'].indexOf(e.base) >= 0)
-          .map(e => ({ ...e, amount: +e.amount }));
+          .map(e => ({ ...e, amount: derivePrice(+e.amount) }));
         resolve(formattedSpotPrices);
       })
       .catch(err => reject(err));
