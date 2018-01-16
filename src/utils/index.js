@@ -12,7 +12,7 @@ function formatCurrency(_value, currencyCode, args) {
   let symbol;
   if (_value * 100 < 0.5) {
     value = _value * 1000000;
-    symbol = 'µ';
+    symbol = '\u00B5';
   } else {
     value = _value;
     symbol = '';

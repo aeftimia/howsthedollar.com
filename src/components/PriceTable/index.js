@@ -17,6 +17,7 @@ const PriceTable = ({ currencyLabel, code, durationLabel, spotPrice, priceHistor
       label={`${currencyLabel} price`}
       code={code}
       value={spotPrice}
+      plusMinus={false}
     />,
   );
 

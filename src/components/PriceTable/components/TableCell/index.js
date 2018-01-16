@@ -11,10 +11,11 @@ const TableCell = ({
     label,
     code,
     value,
+    plusMinus,
     isPercentage }) => {
   const absValue = Math.abs(value);
   const valueElement = [];
-  if (value !== 0) {
+  if (plusMinus && value !== 0) {
     valueElement.push(<span className="small-font green">{(value > 0) ? PLUS_CHAR : MINUS_CHAR}</span>);
   }
 
@@ -44,10 +45,12 @@ TableCell.propTypes = {
   code: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   isPercentage: PropTypes.bool,
+  plusMinus: PropTypes.bool,
 };
 
 TableCell.defaultProps = {
   isPercentage: false,
+  plusMinus: true,
 };
 
 export default TableCell;
