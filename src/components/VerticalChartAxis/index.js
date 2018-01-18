@@ -7,7 +7,7 @@ import './index.css';
 
 
 function formatAxisPrice(price, currencyCode) {
-  return formatCurrency(price, currencyCode, { precision: 0 });
+  return formatCurrency(price, currencyCode, ',d');
 }
 
 const VerticalChartAxis = ({ cryptocurrency, data, textAlign }) => {

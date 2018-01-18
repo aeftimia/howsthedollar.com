@@ -1,4 +1,4 @@
-import currencyFormatter from 'currency-formatter';
+import { format } from 'd3-format';
 import { SYMBOLS } from '../constants';
 
 /**
@@ -7,17 +7,20 @@ import { SYMBOLS } from '../constants';
  * @param {string} currencyCode
  * @returns Formatted currency string
  */
-function formatCurrency(_value, currencyCode, args) {
-  let value;
-  let symbol;
-  if (_value * 100 < 0.5) {
-    value = _value * 1000000;
-    symbol = '\u00B5';
-  } else {
-    value = _value;
-    symbol = '';
+function formatCurrency(value, currencyCode) {
+  if (isNaN(value)) {
+    return null;
   }
-  return `${currencyFormatter.format(value, { ...args })}${symbol}${SYMBOLS[currencyCode.toLowerCase()]}`;
+  const formattedValue = String(format(',s')(value));
+  const reNumber = /[\d,]+\.[\d]{0,2}/;
+  const reSymbol = /[^\d]+$/;
+  const numberString = reNumber.exec(formattedValue)[0];
+  let symbolString = reSymbol.exec(formattedValue);
+  symbolString = symbolString === null ? '' : symbolString;
+  const currencyValue = numberString + symbolString;
+  const key = currencyCode.toLowerCase();
+  if (key in SYMBOLS) return `${currencyValue}${SYMBOLS[key]}`;
+  return `${currencyValue}${key}`;
 }
 
 function derivePrice(inversePrice) {
