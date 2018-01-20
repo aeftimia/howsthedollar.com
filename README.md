@@ -11,28 +11,28 @@ A cryptocurrency price chart built with [React.js](https://facebook.github.io/re
 
 ## Installation
 
-Prerequisites: [Node](https://nodejs.org/en/download/) & [npm](https://docs.npmjs.com/getting-started/installing-node) installed on your system.
+Prerequisites: [Node](https://nodejs.org/en/download/) & [yarn](https://docs.yarnjs.com/getting-started/installing-node) installed on your system.
 
 ``` bash
-git clone https://github.com/tohjustin/coincharts.git && cd ./coincharts
-npm install
+git clone https://github.com/aeftimia/howsthedollar.com.git && cd ./howsthedollar.com
+yarn install
 ```
 
 ## Getting Started
 
 ``` bash
 # Runs the app in development mode at `localhost:3000`
-npm run start
+yarn start
 
 # Takes a snapshot of responses from coinbase API & saves them into JSON files in `public/priceData` (for offline development)
-npm run updatePriceData
+yarn updatePriceData
 
 # Create production build in `/build` folder
-npm run build
+yarn build
 
 # Serve production build at `localhost:5000`
-npm run serve
+yarn serve
 
-# Deploy app with `now.sh` using configuration defined in `now.json`
-npm run deploy
+# Deploy app with `firebase` using configuration defined in `firebase.json`
+yarn deploy
 ```
