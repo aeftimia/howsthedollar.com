@@ -6,7 +6,7 @@
   "scripts": {
     "build": "react-scripts build && rm build/static/**/*.map",
     "check": "yarn stylelint && yarn eslint",
-    "deploy": "yarn check && yarn build && firebase deploy",
+    "deploy": "yarn check && yarn build; firebase deploy",
     "eject": "react-scripts eject",
     "eslint": "eslint --color -- \"src/**/*.js\"",
     "serve": "yarn build && serve ./build",
