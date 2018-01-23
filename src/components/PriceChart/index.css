@@ -1,0 +1,11 @@
+.PriceChart {
+  cursor: crosshair;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.PriceChart svg {
+  height: 100%;
+  width: 100%;
+}
