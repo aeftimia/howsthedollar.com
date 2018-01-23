@@ -3,7 +3,7 @@
 A cryptocurrency price chart built with [React.js](https://facebook.github.io/react/), [D3.js](https://d3js.org/) & [Coinbase API](https://developers.coinbase.com/api/v2).
 
 - Bootstrapped with [create-react-app](https://github.com/facebookincubator/create-react-app)
-- UI design based off [https://www.coinbase.com/charts](https://www.coinbase.com/charts)
+- UI design based off [https://www.coincharts.now.sh](https://www.coincharts.now.sh)
 
 <p align="center">
   <img src="./readme/screenshot.png">
