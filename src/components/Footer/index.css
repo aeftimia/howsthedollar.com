@@ -9,3 +9,17 @@
 .Footer .logo {
   height: 16px;
 }
+
+.share {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+}
+
+.share-button {
+  cursor: pointer;
+}
+
+.share-button:hover:not(:active) {
+  opacity: 0.75;
+}

@@ -34,6 +34,7 @@
     "react-dom": "16.0.0",
     "react-helmet": "5.2.0",
     "react-scripts": "1.0.10",
+    "react-share": "^1.19.0",
     "serve": "6.1.0"
   },
   "devDependencies": {
